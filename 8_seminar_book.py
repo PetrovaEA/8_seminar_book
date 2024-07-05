@@ -45,18 +45,14 @@ def print_result(phone_book):
             s = s + maximize_v + '|'
         print(f'{s}')
         if (i == 0):
-            break_line="";
+            break_line=""
             while (len(break_line)!=len(s)):
                 break_line+='-'
             print(break_line)
 
-
-
-
-
-
-
-
+def find_by_lastname(phone_book,last_name):
+    result = list(filter(lambda x: x['Фамилия'] == last_name, phone_book))
+    return result
 
 
 
@@ -71,7 +67,7 @@ def work_with_phonebook():
             print_result(phone_book)
         elif choice==2:
             last_name=input('lastname ')
-            print(find_by_lastname(phone_book,last_name))
+            print_result(find_by_lastname(phone_book,last_name))
         elif choice==3:
             last_name=input('lastname ')
             new_number=input('new  number ')
