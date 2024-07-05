@@ -1,13 +1,3 @@
-def show_menu():
-    print("\nВыберите необходимое действие:\n"
-          "1. Отобразить весь справочник\n"
-          "2. Найти абонента по фамилии\n"
-          "3. Найти абонента по номеру телефона\n"
-          "4. Добавить абонента в справочник\n"
-          "5. Сохранить справочник в текстовом формате\n"
-          "6. Закончить работу")
-    choice = int(input())
-    return choice
 
 def read_txt(filename): 
     phone_book=[]
@@ -54,26 +44,50 @@ def find_by_lastname(phone_book,last_name):
     result = list(filter(lambda x: x['Фамилия'] == last_name, phone_book))
     return result
 
+def change_number(phone_book,last_name,new_number):
+    conut_changes = 0
+    for i in range(len(phone_book)):
+        if (phone_book[i]['Фамилия'] == last_name):
+            phone_book[i]['Телефон'] = new_number
+            conut_changes+=1
+    return (f"Phone number is changed. Count changes: {conut_changes}")
 
 
-
-
+def show_menu():
+    print("\nВыберите необходимое действие:\n"
+          "1. Отобразить весь справочник\n"
+          "2. Найти абонента по фамилии\n"
+          "3. Изменить номер телефона по фамилии\n"
+          "4. Добавить абонента в справочник\n"
+          "5. Сохранить справочник в текстовом формате\n"
+          "6. Закончить работу")
+    choice = int(input())
+    return choice
 
 def work_with_phonebook():
     choice=show_menu()
     phone_book=read_txt('phon.txt')
     while (choice!=7):
+        #1. Отобразить весь справочник
         if choice==1:
             print_result(phone_book)
+        #2. Найти абонента по фамилии
         elif choice==2:
             last_name=input('lastname ')
             print_result(find_by_lastname(phone_book,last_name))
+        #3. Изменить номер телефона по фамилии
         elif choice==3:
             last_name=input('lastname ')
             new_number=input('new  number ')
-            print(change_number(phone_book,last_name,new_number))	    	
+            print(change_number(phone_book,last_name,new_number))
+            save=input('save changes? (y/n) ')
+            if (save.lower() == 'y'):
+                write_txt('phonebook.txt',phone_book)
+                print('Changes saved')
+            else:
+                phone_book=read_txt('phon.txt')
         elif choice==4:
-            lastname=input('lastname ')
+            lastname=input('lastname ')1
             print(delete_by_lastname(phone_book,lastname))
         elif choice==5:
             number=input('number ')
